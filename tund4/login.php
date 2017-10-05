@@ -23,10 +23,11 @@ require("../../../config.php");
 	$signupPasswordError = "";
 	
 	
+	
 	//kas on kasutajanimi sisestatud
 	if (isset ($_POST["loginEmail"])){
 		if (empty ($_POST["loginEmail"])){
-			//$loginEmailError ="NB! Ilma selleta ei saa sisse logida!";
+			$loginEmailError ="NB! Ilma selleta ei saa sisse logida!";
 		} else {
 			$loginEmail = $_POST["loginEmail"];
 		}
@@ -35,7 +36,7 @@ require("../../../config.php");
 	//kontrollime, kas kirjutati eesnimi
 	if (isset ($_POST["signupFirstName"])){
 		if (empty ($_POST["signupFirstName"])){
-			//$signupFirstNameError ="NB! Väli on kohustuslik!";
+			$signupFirstNameError ="NB! Väli on kohustuslik!";
 		} else {
 			$signupFirstName = intval ($_POST["signupFirstName"]);
 		}
@@ -44,7 +45,7 @@ require("../../../config.php");
 	//kontrollime, kas kirjutati perekonnanimi
 	if (isset ($_POST["signupFamilyName"])){
 		if (empty ($_POST["signupFamilyName"])){
-			//$signupFamilyNameError ="NB! Väli on kohustuslik!";
+			$signupFamilyNameError ="NB! Väli on kohustuslik!";
 		} else {
 			$signupFamilyName = $_POST["signupFamilyName"];
 		}
@@ -57,27 +58,29 @@ require("../../../config.php");
 	//kontrollime, kas kirjutati kasutajanimeks email
 	if (isset ($_POST["signupEmail"])){
 		if (empty ($_POST["signupEmail"])){
-			//$signupEmailError ="NB! Väli on kohustuslik!";
+			$signupEmailError ="NB! Väli on kohustuslik!";
 		} else {
 			$signupEmail = $_POST["signupEmail"];
 		}
 	}
 	
+	//kas kirjutati password 
 	if (isset ($_POST["signupPassword"])){
 		if (empty ($_POST["signupPassword"])){
-			//$signupPasswordError = "NB! Väli on kohustuslik!";
+			$signupPasswordError = "NB! Väli on kohustuslik!";
 		} else {
 			//polnud tühi
 			if (strlen($_POST["signupPassword"]) < 8){
-				//$signupPasswordError = "NB! Liiga lühike salasõna, vaja vähemalt 8 tähemärki!";
+				$signupPasswordError = "NB! Liiga lühike salasõna, vaja vähemalt 8 tähemärki!";
 			}
 		}
 	}
 	
+	//kas valiti sugu
 	if (isset($_POST["gender"]) && !empty($_POST["gender"])){ //kui on määratud ja pole tühi
 			$gender = intval($_POST["gender"]);
 		} else {
-			//$signupGenderError = " (Palun vali sobiv!) Määramata!";
+			$signupGenderError = " (Palun vali sobiv!) Määramata!";
 	}
 	
 	//tekitan sünnikuu valiku
@@ -98,10 +101,6 @@ require("../../../config.php");
 		$signupBirthYear = $_POST["signupBirthYear"];
 		//echo $signupBirthYear;
 	}
-	
-	
-	
-	
 	
 	//Tekitame kuupäeva valiku
 	$signupDaySelectHTML = "";
@@ -144,6 +143,8 @@ require("../../../config.php");
 		$signupBirthYear = $_POST["signupBirthYear"];
 		//echo $signupBirthYear;
 	}
+	
+	
 	
 	$signupYearSelectHTML.= "</select> \n";
 	//kontrollime, kas sisestatud kuupäev on valiidne

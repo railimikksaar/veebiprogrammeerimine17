@@ -104,29 +104,7 @@ if(isset($_SESSION["userId"])){
 	
 	
 	
-	//UUE KASUTAJA LISAMINE
 	
-	/*if (empty($signupFirstNameError) and empty($signupFamilyNameError) and empty($signupBirthDayError) and empty($signupGenderError) and empty($signupEmailError) and empty($signupPasswordError) and !empty($_POST["signupPassword"])){
-		echo "Hakkan andmeid salvestama!";
-		$signupPassword = hash("sha512", $_POST["signupPassword"]);
-		
-		//ühendus serveriga
-		$database = "if17_raili";
-		$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
-		//käsk serverile
-		$stmt = $mysqli->prepare("INSERT INTO vpusers(firstname, lastname, birthdate, gender, email, password) VALUES (?, ?, ?, ?, ?, ?)");
-		echo $mysqli->error;
-		//s - string ehk tekst
-		//i - integer ehk täisarv
-		//d - decimal ehk ujukomaarv
-		$stmt->bind_param("sssiss", $signupFirstName, $signupFamilyName, $signupBirthDate, $gender, $signupEmail, $signupPassword);
-		//$stmt->execute();
-		if($stmt->execute()){
-			echo "Läks väga hästi";			
-		} else{
-			echo "Tekkis viga: " .$stmt->error;			
-		}
-	}*/
 	if (isset ($_POST["signupBirthDay"])){
 		$signupBirthDay = $_POST["signupBirthDay"];
 		//echo $signupBirthDay;

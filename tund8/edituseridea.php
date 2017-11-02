@@ -1,5 +1,6 @@
 <?php
 	require("functions.php");
+	require("editideafunctions.php");
 	$notice="";
 	
 	//kas pole sisse loginud
@@ -16,12 +17,19 @@
 	}
 	//kui soovitakse ideed salvestada
 	if(isset($_POST["ideaBtn"])){
-		//echo $_POST["ideaColor"];
-		if(isset($_POST["userIdea"]) and isset($_POST["ideaColor"]) and !empty($_POST["userIdea"]) and !empty($_POST["ideaColor"])){
-			$myIdea = test_input($_POST["userIdea"]);
-			$notice = saveMyIdea($myIdea, $_POST["ideaColor"]);
-		}
+		updateIdea($_POST["id"], test_input($_POST["idea"]), $_POST["ideaColor"]);
+		//jään siia samasse
+		header("Location: ?id=" .$_POST["id"]);
+		exit();
+		
 	}
+	if(isset($_GET["delete"])){
+		deleteIdea($_GET["id"]);
+		header("Location: userideas.php");
+		exit();
+	}
+	
+	$idea = getSingleIdea($_GET["id"]);
 	
 ?>
 
@@ -35,23 +43,23 @@
 	<h1>Ideed</h1>
 	<p>See leht on loodud õppetöö raames ning ei sisalda mingit tõsiseltvõetavat sisu.</p>
 	<p><a href="?logout=1">Logi välja!</a></p>
-	<p><a href="main.php">Pealeht</a></p>
+	<p><a href="userideas.php">Tagasi mõtete lehele</a></p>
 	<hr>
-	<h2>Head mõtted</h2>
+	<h2>Toimeta mõtet</h2>
 	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+		<input name="id" type="hidden" value="<?php echo $_GET["id"]; ?>">
 		<label>Hea mõte: </label>
-		<input name="userIdea" type="text">
+		<textarea name="idea"><?php echo $idea->text; ?></textarea>
 		<br>
 		<label>Mõttega seostuv värv: </label>
-		<input name="ideaColor" type="color">
+		<input name="ideaColor" type="color" value="<?php echo $idea->color; ?>">
 		<br>
-		<input name="ideaBtn" type="submit" value="Salvesta mõte!"><span><?php echo $notice; ?></span>
+		<input name="ideaBtn" type="submit" value="Salvesta muudatus!"><span><?php echo $notice; ?></span>
 	</form>
+	<p><a href="?id=<?=$_GET['id']; ?>&delete=1">Kustuta see mõte!</p>
+	<!-- <a href="?id=19&delete=1"> --> 
 	<hr>
-	<h2>Palju toredaid mõtteid</h2>
-	<div style="width: 40%">
-		<?php echo listIdeas(); ?>
-	</div>
+	
 	
 	
 </body>
